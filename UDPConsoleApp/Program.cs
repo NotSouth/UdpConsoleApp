@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json;
 using AirLibrary;
 
 namespace UDPConsoleApp
@@ -12,10 +13,11 @@ namespace UDPConsoleApp
             mockAir.Humidity = "very moist";
             mockAir.Temperature = "hot af";
             mockAir.ID = 0;
-            
 
+            string jsonString = JsonSerializer.Serialize(mockAir);
+            
             UdpBroadcaster udp = new UdpBroadcaster();
-            udp.SendMessage(mockAir);
+            udp.SendMessage(jsonString);
 
         }
     }

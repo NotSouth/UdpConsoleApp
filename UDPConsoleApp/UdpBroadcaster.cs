@@ -8,35 +8,25 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 namespace UDPConsoleApp
 {
     public class UdpBroadcaster
     {
-        public async Task<Air> SendMessage(Air airObject)
+        public void SendMessage(string message)
         {
-            
-         
-            //byte[] data = Encoding.UTF8.GetBytes(jsonstring);
-            //System.Net.Sockets.UdpClient socket = new System.Net.Sockets.UdpClient();
-            //socket.Send(data, data.Length, "192.168.104.147:5001/api/Air", 10010);
-            using(HttpClient client = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                JsonContent serializedItem = JsonContent.Create(airObject);
-                HttpResponseMessage response = await client.PostAsync("https://192.168.104.147:5001/api/Air", serializedItem);
-
-                return await response.Content.ReadFromJsonAsync<Air>();
+                //client.PostAsync("http://localhost:51141/api/Sensor", JsonContent.Create(message));
+                var data = new StringContent(message, Encoding.UTF8, "application/json");
+                var response = client.PostAsync("https://192.168.104.147:5001/api/Air", data).Result;
             }
-
-
-            //while (true)
-            //{
-            //    IPEndPoint from = null;
-            //    byte[] recieveData = socket.Receive(ref from);
-            //    string recievedString = Encoding.UTF8.GetString(recieveData);
-            //    Console.WriteLine(recievedString);
-            //}
+            Console.WriteLine("Sent: " + message);
         }
+
+       
 
     }
 }
