@@ -11,6 +11,7 @@ namespace UDPConsoleApp
             mockAir.CO2 = "200";
             mockAir.Humidity = "very moist";
             mockAir.Temperature = "hot af";
+            mockAir.ID = 0;
             
 
             UdpBroadcaster udp = new UdpBroadcaster();
