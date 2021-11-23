@@ -5,4 +5,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="AirLibrary">
+      <HintPath>..\..\AirLibrary\AirLibrary\bin\Debug\net5.0\AirLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
