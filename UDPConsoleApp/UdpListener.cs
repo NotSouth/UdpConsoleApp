@@ -21,6 +21,7 @@ namespace UDPConsoleApp
                 byte[] data = socket.Receive(ref from);
                 string received = Encoding.UTF8.GetString(data);
                 Console.WriteLine($"{received}");
+                //small change
             }
 
 
