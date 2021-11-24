@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json;
+using System.Threading.Tasks;
 using AirLibrary;
 
 namespace UDPConsoleApp
@@ -8,6 +9,8 @@ namespace UDPConsoleApp
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Starting...");
+
             Air mockAir = new Air();
             mockAir.CO2 = "200";
             mockAir.Humidity = "very moist";
@@ -15,9 +18,10 @@ namespace UDPConsoleApp
             mockAir.ID = 0;
 
             string jsonString = JsonSerializer.Serialize(mockAir);
-            
-            UdpBroadcaster udp = new UdpBroadcaster();
-            udp.SendMessage(jsonString);
+            Console.WriteLine(jsonString);
+
+            Task.Run(() => { UdpListener.StartListener(); }) ;
+            Console.ReadKey();
 
         }
     }
