@@ -15,18 +15,16 @@ namespace UDPConsoleApp
 {
     public class UdpBroadcaster
     {
-        public void SendMessage(string message)
+        public static void SendMessage(string message)
         {
             using (HttpClient client = new HttpClient())
             {
-                //client.PostAsync("http://localhost:51141/api/Sensor", JsonContent.Create(message));
                 var data = new StringContent(message, Encoding.UTF8, "application/json");
-                var response = client.PostAsync("https://192.168.104.147:5001/api/Air", data).Result;
+                var response = client.PostAsync("https://localhost:5001/api/Air", data).Result;
             }
             Console.WriteLine("Sent: " + message);
         }
 
-       
 
     }
 }
