@@ -23,7 +23,10 @@ namespace UDPConsoleApp
                 byte[] data = socket.Receive(ref from);
                 string received = Encoding.UTF8.GetString(data);
                 Air air = JsonSerializer.Deserialize<Air>(received);
-                Console.WriteLine($"Received: {air.CO2}, {air.Humidity}, {air.Temperature}.");
+                air.CO2 = Math.Truncate(air.CO2 * 100) / 100;
+                air.Humidity = Math.Truncate(air.Humidity * 100) / 100;
+                air.Temperature = Math.Truncate(air.Temperature * 100) / 100;
+                Console.WriteLine($"Received: CO2 {air.CO2} ppm, Humidity {air.Humidity}%, Temperature {air.Temperature} C.");
                 string json = JsonSerializer.Serialize(air);
                 UdpBroadcaster.SendMessage(json);
             }
