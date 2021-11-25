@@ -20,11 +20,16 @@ namespace UDPConsoleApp
             using (HttpClient client = new HttpClient())
             {
                 var data = new StringContent(message, Encoding.UTF8, "application/json");
-                var response = client.PostAsync("https://localhost:5001/api/Air", data).Result;
+                try
+                {
+                    var response = client.PostAsync("https://localhost:5001/api/Air", data).Result;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             Console.WriteLine("Sent: " + message);
         }
-
-
     }
 }
